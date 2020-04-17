@@ -4,6 +4,7 @@
 #include <iostream>
 #include <time.h> //time seeding srand
 #include <stdlib.h> //rand & srand
+#include <string>
 
 using namespace std; 
 
@@ -14,7 +15,8 @@ class sensor {
     int ip_address;
     int flow_speed();
     int viscosity();
-    int temperature();
+    int temperature_inside();
+    int temperature_outside();
     double gps_position();
     int battery_level();
     int hard_drive_space();
@@ -25,12 +27,13 @@ class sensor {
 //function declarations
 int flow_speed();
 int viscosity();
-int temperature();
-double gps_position();
+int temperature_inside();
+int temperature_outside();
+int gps_position();
 int battery_level();
 int hard_drive_space();
 int wifi_signal();
-void sensor_naming(sensor sensor_type);
+string sensor_naming();
 sensor vt235x;
 sensor psx25;
 
@@ -38,9 +41,13 @@ int main()
 {
     sensor vt235x;
     sensor psx25;
-    cout << "Hello World!\n";
-    cout << temperature_inside() << endl;
-    cout << temperature_outside() << endl;
+   
+        srand((unsigned)time(0));
+        cout << temperature_inside() << endl;
+        cout << temperature_outside() << endl;
+        cout << flow_speed() << endl;
+        cout << sensor_naming() << endl;
+
     //void sensor_naming(sensor vt235x);
     //void sensor_naming(sensor psx25);
 
@@ -49,11 +56,18 @@ int main()
 
 
 int flow_speed() {
-    int speed;
-    srand(time(NULL));
-    speed = 7;
+    int speed = 7;
+    if (temperature_outside() >= 220) {
+        speed = 0;
+    }
+    //Not in the right position
+   /* if (gps_position = true) {
+        speed = 0;
+    }
+    */
     return speed;
 }
+
 /*
 int viscosity() {
 
@@ -65,10 +79,11 @@ int temperature_inside() {
     //https://www.bitdegree.org/learn/random-number-generator-cpp#random-numbers-between-1-and-100
     int temp_inside;
     temp_inside = 100 + (rand() % 10);
-
+   
     return temp_inside;
 }
 
+//done
 int temperature_outside() {
     srand((unsigned)time(0));
     //https://www.bitdegree.org/learn/random-number-generator-cpp#random-numbers-between-1-and-100
@@ -77,8 +92,12 @@ int temperature_outside() {
     //temp calculations\
     //simulate typical temperatures outside. 
     temp_outside = (rand() % 120);
+
     //serve as the trigger point for a catastrophe
     catastrophe_temp = (rand() % 225);
+    
+    //uncomment to test the 'if' loop
+    //catastrophe_temp = 225;
 
     if (catastrophe_temp > 220) {
         return catastrophe_temp;
@@ -89,9 +108,59 @@ int temperature_outside() {
     }
 }
 
+
+
+
+void sensor_naming() {
+
+    //call one of each type in main
+    sensor sensor_type;
+    string sensor_ID;
+    int mile_marker;
+    int i;
+    sensor vt235x;
+    sensor psx25;
+    // going through 2000 miles of pipe to name
+    for (i = 0; i < 2000; i += 12) {
+        mile_marker = i;
+        //to_string makes integer compatible with string. 
+        sensor_ID = "vt235x" + to_string(mile_marker);
+        //sensor_ID = fprintf(%s" - " % d, sensor_type, mile_marker);
+    }
+    
+    //name of sensor should be vt235 or PSX + mile marker
+    return;
+}
+//
+
+/* revisit once basics done
+void sensor_naming(sensor sensor_type) {
+    //call one of each type in main
+    int mile_marker;
+    int i;
+    //going through 2000 miles of pipe to name
+    for (i = 0; i < 2000; i += 12)
+            mile_marker = i;
+            *sensor_ID = sensor_type + mile_marker;
+    }
+
+
+    //name of sensor should be vt235 or PSX + mile marker
+
+}
+*/
+
 /*
 double gps_position() {
+        STATIC
+        srand((unsigned)time(0));
+        temp_inside = (rand() % 700)rt
+        
+        CATASTROPHE Condition.
 
+            NUMBER == RAND NUMBER CREATES CATASROPHE
+                should happen at least once in test data. 
+        
 };
 
 int battery_level() {
@@ -138,24 +207,21 @@ int hard_drive_space() {
 int wifi_signal() {
          srand(time(NULL));
 };
+
+OS 3 WAYS
+FORK PROCESS
+SEND DATA TO DATABASE
+    MYSQL INSTANCE
+
+VV
+GLOBAL VARIABLE/THREAD TO EMULATE. 
+
+ WHEN STORED TO GLOBAL VARIABLE ENCRYPT, WHEN READ FROM VARIABLE, DECRYPT. 
+    BITWISE NOT.
+
 */
 
 
-/* revisit once basics done
-void sensor_naming(sensor sensor_type) {
-    //call one of each type in main
-    int mile_marker;
-    int i;
-    //going through 2000 miles of pipe to name
-    for (i = 0; i < 2000; i += 12)
-            mile_marker = i;
-            *sensor_ID = sensor_type + mile_marker;
-    }
 
-
-    //name of sensor should be vt235 or PSX + mile marker
-
-}
-*/
 
 
