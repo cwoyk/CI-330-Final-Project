@@ -1,10 +1,12 @@
 // Final Project.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
+#include <stdio.h>
 #include <iostream>
 #include <time.h> //time seeding srand
 #include <stdlib.h> //rand & srand
 #include <string>
+#include <fstream> //file operations
 
 using namespace std; 
 
@@ -33,7 +35,7 @@ int gps_position();
 int battery_level();
 int hard_drive_space();
 int wifi_signal();
-string sensor_naming();
+void sensor_naming();
 sensor vt235x;
 sensor psx25;
 
@@ -42,11 +44,11 @@ int main()
     sensor vt235x;
     sensor psx25;
    
-        srand((unsigned)time(0));
-        cout << temperature_inside() << endl;
-        cout << temperature_outside() << endl;
-        cout << flow_speed() << endl;
-        cout << sensor_naming() << endl;
+    srand((unsigned)time(0));
+    cout << temperature_inside() << endl;
+    cout << temperature_outside() << endl;
+    cout << flow_speed() << endl;
+    sensor_naming();
 
     //void sensor_naming(sensor vt235x);
     //void sensor_naming(sensor psx25);
@@ -114,39 +116,39 @@ int temperature_outside() {
 void sensor_naming() {
 
     //call one of each type in main
-    sensor sensor_type;
+    
     string sensor_ID;
-    int mile_marker;
+    int vt235x_mile_marker;
+    int psx_mile_marker;
     int i;
-    sensor vt235x;
-    sensor psx25;
+    ofstream sensorNames;
+    sensorNames.open("SensorNames.csv");
     // going through 2000 miles of pipe to name
     for (i = 0; i < 2000; i += 12) {
-        mile_marker = i;
+        vt235x_mile_marker = i;
         //to_string makes integer compatible with string. 
-        sensor_ID = "vt235x" + to_string(mile_marker);
+        sensor_ID = to_string(vt235x_mile_marker) + "-vt235x";
         //sensor_ID = fprintf(%s" - " % d, sensor_type, mile_marker);
+        sensorNames << sensor_ID << endl;
     }
+    
+    int a;
+    
+    for (i = 0; i < 2000; i +=3){
+        if (i != (a+=12)){
+        psx_mile_marker = i;
+        //to_string makes integer compatible with string. 
+        sensor_ID = to_string(psx_mile_marker) + "-psx25";
+        //sensor_ID = fprintf(%s" - " % d, sensor_type, mile_marker);
+        sensorNames << sensor_ID << endl;
+        }
+        
+    }
+    
+sensorNames.close();
     
     //name of sensor should be vt235 or PSX + mile marker
     return;
-}
-//
-
-/* revisit once basics done
-void sensor_naming(sensor sensor_type) {
-    //call one of each type in main
-    int mile_marker;
-    int i;
-    //going through 2000 miles of pipe to name
-    for (i = 0; i < 2000; i += 12)
-            mile_marker = i;
-            *sensor_ID = sensor_type + mile_marker;
-    }
-
-
-    //name of sensor should be vt235 or PSX + mile marker
-
 }
 */
 
