@@ -113,44 +113,39 @@ int temperature_outside() {
 
 
 
-void sensor_naming() {
-
-    //call one of each type in main
+void sensor_naming() {    
     
     string sensor_ID;
     int vt235x_mile_marker;
     int psx_mile_marker;
     int i;
+    
+    //file creation for output of sensor names
     ofstream sensorNames;
     sensorNames.open("SensorNames.csv");
+    
     // going through 2000 miles of pipe to name
     for (i = 0; i < 2000; i += 12) {
         vt235x_mile_marker = i;
         //to_string makes integer compatible with string. 
         sensor_ID = to_string(vt235x_mile_marker) + "-vt235x";
-        //sensor_ID = fprintf(%s" - " % d, sensor_type, mile_marker);
+        //outputs sensor_ID into csv file
         sensorNames << sensor_ID << endl;
     }
-    
-    int a;
-    
-    for (i = 0; i < 2000; i +=3){
-        if (i != (a+=12)){
+     
+    //iterates through 2000 miles to create names of psx sensors
+    for (i = 0; i < 2000; i +=3) {
         psx_mile_marker = i;
         //to_string makes integer compatible with string. 
         sensor_ID = to_string(psx_mile_marker) + "-psx25";
-        //sensor_ID = fprintf(%s" - " % d, sensor_type, mile_marker);
+        //outputs sensor_ID into csv file
         sensorNames << sensor_ID << endl;
-        }
-        
     }
-    
-sensorNames.close();
-    
-    //name of sensor should be vt235 or PSX + mile marker
+//closes csv file     
+    sensorNames.close();
     return;
 }
-*/
+
 
 /*
 double gps_position() {
