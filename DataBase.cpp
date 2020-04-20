@@ -16,7 +16,7 @@ class sensor {
     string sensor_ID;
     int ip_address;
     int flow_speed();
-    int viscosity();
+    
     int temperature_inside();
     int temperature_outside();
     void gps_position();
@@ -59,8 +59,6 @@ int main()
 
 }
 
-
-
 bool gps_position() {
     int physical_catastrophe_odds;
     int occurence_odds;
@@ -88,7 +86,8 @@ bool gps_position() {
 
 int flow_speed(int a) {
     int speed = 7;
-    
+    int temp_inside;
+    temp_inside = temperature_inside();
     //beware of constant use, overriding catastrophes.
     //ideal speed & viscosity
     if (a = 500){
@@ -96,24 +95,24 @@ int flow_speed(int a) {
     }
     
     //low viscosity, lowers speed.
-    else if((viscosity(temperature_inside()) < 490) && (viscosity(temperature_inside()) > 480)) {
+    else if((viscosity(temp_inside) < 490) && (viscosity(temp_inside) > 480)) {
         speed = 4;
     }
     
     //lowest viscosity, lowest speed
-    else if((viscosity(temperature_inside()) <= 480) && (viscosity(temperature_inside()) > 450)) {
+    else if((viscosity(temp_inside) <= 480) && (viscosity(temp_inside) > 450)) {
         speed = 3;
     }
     
     //high viscosity, higher speed.
-    else if((viscosity(temperature_inside()) > 500) && (viscosity(temperature_inside()) < 510)) {
+    else if((viscosity(temp_inside) > 500) && (viscosity(temp_inside) < 510)) {
         speed = 8;
     }
     //highest viscosity, highest speed
-    else if((viscosity(temperature_inside()) > 510) && (viscosity(temperature_inside()) <= 525)) {
+    else if((viscosity(temp_inside) > 510) && (viscosity(temp_inside) <= 525)) {
         speed = 9;
     }
-    */
+    
     
     //catastrophe conditions
     /*
@@ -132,11 +131,9 @@ int flow_speed(int a) {
 }
     
 //viscosity changes at temperature changes
-int viscosity() {
+int viscosity(int temp_inside) {
     //ideal viscosity occurs at 105 degrees F
     int visc = 500;
-    int temp_inside;
-    
     int temp_change = 0;
     int visc_change = 0;
     
@@ -260,30 +257,6 @@ void sensor_naming() {
     return;
 }
 
-
-
-bool gps_position() {
-    int physical_catastrophe_odds;
-    int occurence_odds;
-    string occurence;
-    srand((unsigned)time(0));
-    //change moduli for testing purposes. 
-    physical_catastrophe_odds = (rand() % 500);
-    occurence_odds = (rand() % 25);
-    
-    cout << physical_catastrophe_odds << endl;
-    cout << occurence_odds << endl;
-    
-    /*  
-    uncomment to test for logic:
-    physical_catastrophe_odds = 1;
-    occurence_odds = 1;
-    */
-    if (physical_catastrophe_odds == occurence_odds)
-        cout << "catastrophe occured. GPS location off.";
-        catastrophe = TRUE;
-    return; 
-}
 
 /*
 int battery_level() {
