@@ -59,28 +59,7 @@ int main()
 
 }
 
-bool gps_position() {
-    int physical_catastrophe_odds;
-    int occurence_odds;
-    string occurence;
-    srand((unsigned)time(0));
-    //change moduli for testing purposes. 
-    physical_catastrophe_odds = (rand() % 500);
-    occurence_odds = (rand() % 25);
-    
-    cout << physical_catastrophe_odds << endl;
-    cout << occurence_odds << endl;
-    
-    /*  
-    uncomment to test for logic:
-    physical_catastrophe_odds = 1;
-    occurence_odds = 1;
-    */
-    if (physical_catastrophe_odds == occurence_odds)
-        cout << "catastrophe occured. GPS location off.";
-        catastrophe = TRUE;
-    return; 
-}
+
 
 bool gps_position() {
     int physical_catastrophe_odds;
