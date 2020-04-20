@@ -293,16 +293,34 @@ int battery_level() {
         }  
         cout << charge << endl;
         cout << charge_status << endl;
-}
-int hard_drive_space() {
-         srand(time(NULL));
+int hard_drive_space(bool wifi) {
+    int hard_drive_memory = 1000;
+    
+    while (wifi == false){
+        hard_drive_memory--;
+    }
+    
+    if (wifi == true){
+        free();
+    }
     
     if wifi signal is good. free hard drive space. 
         time since free, decrease available space.
         
 }
-int wifi_signal() {
-         srand(time(NULL));
+*/
+bool wifi_signal() {
+        int sending;
+        int receiving;
+        bool signal;
+        sending = rand() % 5;
+        receiving = rand() % 5;
+        
+        if (sending = receiving){
+            signal = true;
+        }
+    return signal;
+        
 }
 OS 3 WAYS
 FORK PROCESS
