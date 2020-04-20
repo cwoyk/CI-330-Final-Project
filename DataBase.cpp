@@ -1,5 +1,5 @@
 // Final Project.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+// Data generation. Random functions emulate nature, not concerned with the security of such. 
 
 #include <stdio.h>
 #include <iostream>
@@ -19,7 +19,7 @@ class sensor {
     int viscosity();
     int temperature_inside();
     int temperature_outside();
-    double gps_position();
+    void gps_position();
     int battery_level();
     int hard_drive_space();
     int wifi_signal();
@@ -28,10 +28,10 @@ class sensor {
 
 //function declarations
 int flow_speed();
-int viscosity();
+int viscosity(int temp_inside);
 int temperature_inside();
 int temperature_outside();
-int gps_position();
+void gps_position();
 int battery_level();
 int hard_drive_space();
 int wifi_signal();
@@ -47,34 +47,190 @@ int main()
     srand((unsigned)time(0));
     cout << temperature_inside() << endl;
     cout << temperature_outside() << endl;
-    cout << flow_speed() << endl;
-    sensor_naming();
+    cout << flow_speed() << endl; 
+    viscosity(temperature_inside()) //still need warnings
+    sensor_naming(); //exported to csv file
 
     //void sensor_naming(sensor vt235x);
     //void sensor_naming(sensor psx25);
 
 }
 
+int temperature_inside();
+int  viscosity(int temperature_inside);
+bool gps_position();
+int flow_speed(int a);
 
+bool gps_position() {
+    int physical_catastrophe_odds;
+    int occurence_odds;
+    string occurence;
+    bool catastrophe;
+    srand((unsigned)time(0));
+    //change moduli for testing purposes. 
+    physical_catastrophe_odds = (rand() % 500);
+    occurence_odds = (rand() % 25);
+    
+    cout << physical_catastrophe_odds << endl;
+    cout << occurence_odds << endl;
+    
+    /*  
+    uncomment to test for logic:
+    physical_catastrophe_odds = 1;
+    occurence_odds = 1;
+    */
+    if (physical_catastrophe_odds == occurence_odds)
+        cout << "catastrophe occured. GPS location off.";
+        catastrophe = true;
+    return catastrophe; 
+}
+
+
+int flow_speed(int a) {
+    int speed = 7;
+    
+    //beware of constant use, overriding catastrophes.
+    //ideal speed & viscosity
+    if (a = 500){
+        speed = 7;
+    }
+    /*
+    //low viscosity, lowers speed.
+    else if((viscosity() < 490) && (viscosity() > 480)){
+        speed = 4
+    }
+    
+    //lowest viscosity, lowest speed
+    else if((viscosity() <= 480) && (viscosity() > 450)){
+        speed = 3;
+    }
+    
+    //high viscosity, higher speed.
+    else if((viscosity() > 500) && (viscosity() < 510)){
+        speed = 8;
+    }
+    //highest viscosity, highest speed
+    else if((viscosity() > 510) && (viscosity() <= 525)){\
+        speed = 9;
+    }
+    */
+    
+    //catastrophe conditions
+    /*
+    calls gpsposition function. if random odds compare to TRUE, 
+    GPS not in the right position signalling catastrophe
+    */
+    if ((gps_position()) == true) {
+        speed = 0;
+    }
+    
+    
+    //high temp signals outside catastrophe, therefore speed stop. 
+   /* if ((temperature_outside()) >= 220) {
+        speed = 0;
+    } */
+    return speed;
+}
+    
+//viscosity changes at temperature changes
+int viscosity() {
+    //ideal viscosity occurs at 105 degrees F
+    int visc = 500;
+    int temp_inside;
+    
+    int temp_change = 0;
+    int visc_change = 0;
+    
+    if (temp_inside == 105){
+        visc = 500;
+    }
+    else if( temp_inside > 105){
+        //if temp above 105, viscosity increases as function of temp*5
+        temp_change = (temp_inside - 105);
+        visc_change = temp_change * 5;
+        visc += visc_change;
+    }
+    else if(temp_inside < 105){
+        //if temp below 105, viscosity decreases as function of temp*5
+        //actual temp - ideal temp = change in temp. 
+        temp_change =(105 - temp_inside);
+        visc_change = temp_change * 5;
+        visc -= visc_change;
+    }
+    return visc;
+}
+
+int temperature_inside() {
+    srand((unsigned)time(0));
+    //https://www.bitdegree.org/learn/random-number-generator-cpp#random-numbers-between-1-and-100
+    int temp_inside;
+    temp_inside = 100 + (rand() % 10);
+   
+    return temp_inside;
+}
+int main()
+{
+  flow_speed(viscosity(temperature_inside));
+
+}
 
 int flow_speed() {
     int speed = 7;
+    //catastrophe conditions
+    //high temp signals outside catastrophe, therefore speed stop. 
     if (temperature_outside() >= 220) {
         speed = 0;
     }
-    //Not in the right position
-   /* if (gps_position = true) {
+    /*
+    calls gpsposition function. if random odds compare to TRUE, 
+    GPS not in the right position signalling catastrophe
+    */
+    
+    if (gps_position() = TRUE) {
         speed = 0;
     }
-    */
+    
+   switch (viscosity)
+{
+     case 500:
+        speed = 7;
+        
+     ;
+     case (viscosity < 500):
+        speed = 5
+     ;
+     case (viscosity > 500): 
+        speed = 8;
+}
     return speed;
 }
 
-/*
-int viscosity() {
-
-};
-*/
+//viscosity changes at temperature changes
+int  viscosity(int temp_inside) {
+    //ideal viscosity occurs at 105 degrees F
+    int visc = 500;
+    
+    int temp_change = 0;
+    int visc_change = 0;
+    
+    if (temp_inside == 105){
+        visc = 500;
+    }
+    else if( temp_inside > 105){
+        //if temp above 105, viscosity increases as function of temp*5
+        temp_change = (temp_inside - 105);
+        visc_change = temp_change * 5;
+        visc += visc_change;
+    }
+    else if(temp_inside < 105){
+        //if temp below 105, viscosity decreases as function of temp*5
+        //actual temp - ideal temp = change in temp. 
+        temp_change =(105 - temp_inside);
+        visc_change = temp_change * 5;
+        visc -= visc_change;
+    }
+    return visc;
+}
 
 int temperature_inside() {
     srand((unsigned)time(0));
@@ -147,18 +303,30 @@ void sensor_naming() {
 }
 
 
-/*
-double gps_position() {
-        STATIC
-        srand((unsigned)time(0));
-        temp_inside = (rand() % 700)rt
-        
-        CATASTROPHE Condition.
 
-            NUMBER == RAND NUMBER CREATES CATASROPHE
-                should happen at least once in test data. 
-        
-};
+void gps_position() {
+    int physical_catastrophe_odds;
+    int occurence_odds;
+    string occurence;
+    srand((unsigned)time(0));
+    //change moduli for testing purposes. 
+    physical_catastrophe_odds = (rand() % 500);
+    occurence_odds = (rand() % 25);
+    
+    cout << physical_catastrophe_odds << endl;
+    cout << occurence_odds << endl;
+    
+    /*  
+    uncomment to test for logic:
+    physical_catastrophe_odds = 1;
+    occurence_odds = 1;
+    */
+    if (physical_catastrophe_odds == occurence_odds)
+        cout << "catastrophe occured. GPS location off.";
+        catastrophe = TRUE;
+    return; 
+}
+
 
 int battery_level() {
              time_t t = time(NULL);
@@ -195,15 +363,19 @@ int battery_level() {
         cout << charge << endl;
         cout << charge_status << endl;
 
-};
+}
 
 int hard_drive_space() {
          srand(time(NULL));
-};
+    
+    if wifi signal is good. free hard drive space. 
+        time since free, decrease available space.
+        
+}
 
 int wifi_signal() {
          srand(time(NULL));
-};
+}
 
 OS 3 WAYS
 FORK PROCESS
@@ -217,6 +389,8 @@ GLOBAL VARIABLE/THREAD TO EMULATE.
     BITWISE NOT.
 
 */
+    
+    
 
 
 
