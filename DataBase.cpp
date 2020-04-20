@@ -286,7 +286,7 @@ void gps_position() {
     return; 
 }
 
-
+/*
 int battery_level() {
              time_t t = time(NULL);
     struct tm tm = *localtime(&t);
