@@ -49,9 +49,9 @@ int main()
     srand((unsigned)time(0));
     cout << temperature_inside() << endl;
     cout << temperature_outside() << endl;
-    cout << flow_speed() << endl; 
-    viscosity(temperature_inside()) //still need warnings
-    flow_speed(viscosity(temperature_inside));
+ 
+    viscosity(temperature_inside()); //still need warnings
+    flow_speed(viscosity(temperature_inside()));
     sensor_naming(); //exported to csv file
 
     //void sensor_naming(sensor vt235x);
@@ -59,14 +59,35 @@ int main()
 
 }
 
-
+bool gps_position() {
+    int physical_catastrophe_odds;
+    int occurence_odds;
+    string occurence;
+    srand((unsigned)time(0));
+    //change moduli for testing purposes. 
+    physical_catastrophe_odds = (rand() % 500);
+    occurence_odds = (rand() % 25);
+    
+    cout << physical_catastrophe_odds << endl;
+    cout << occurence_odds << endl;
+    
+    /*  
+    uncomment to test for logic:
+    physical_catastrophe_odds = 1;
+    occurence_odds = 1;
+    */
+    if (physical_catastrophe_odds == occurence_odds)
+        cout << "catastrophe occured. GPS location off.";
+        catastrophe = TRUE;
+    return; 
+}
 
 bool gps_position() {
     int physical_catastrophe_odds;
     int occurence_odds;
     string occurence;
     bool catastrophe;
-    srand((unsigned)time(0));
+    
     //change moduli for testing purposes. 
     physical_catastrophe_odds = (rand() % 500);
     occurence_odds = (rand() % 25);
@@ -96,21 +117,21 @@ int flow_speed(int a) {
     }
     
     //low viscosity, lowers speed.
-    else if((viscosity() < 490) && (viscosity() > 480)){
-        speed = 4
+    else if((viscosity(temperature_inside()) < 490) && (viscosity(temperature_inside()) > 480)) {
+        speed = 4;
     }
     
     //lowest viscosity, lowest speed
-    else if((viscosity() <= 480) && (viscosity() > 450)){
+    else if((viscosity(temperature_inside()) <= 480) && (viscosity(temperature_inside()) > 450)) {
         speed = 3;
     }
     
     //high viscosity, higher speed.
-    else if((viscosity() > 500) && (viscosity() < 510)){
+    else if((viscosity(temperature_inside()) > 500) && (viscosity(temperature_inside()) < 510)) {
         speed = 8;
     }
     //highest viscosity, highest speed
-    else if((viscosity() > 510) && (viscosity() <= 525)){\
+    else if((viscosity(temperature_inside()) > 510) && (viscosity(temperature_inside()) <= 525)) {
         speed = 9;
     }
     */
@@ -202,7 +223,6 @@ END REPEAT
 
 //done
 int temperature_outside() {
-    srand((unsigned)time(0));
     //https://www.bitdegree.org/learn/random-number-generator-cpp#random-numbers-between-1-and-100
     int temp_outside;
     int catastrophe_temp;
@@ -263,7 +283,7 @@ void sensor_naming() {
 
 
 
-void gps_position() {
+bool gps_position() {
     int physical_catastrophe_odds;
     int occurence_odds;
     string occurence;
@@ -321,9 +341,7 @@ int battery_level() {
         }  
         cout << charge << endl;
         cout << charge_status << endl;
-
 }
-
 int hard_drive_space() {
          srand(time(NULL));
     
@@ -331,27 +349,15 @@ int hard_drive_space() {
         time since free, decrease available space.
         
 }
-
 int wifi_signal() {
          srand(time(NULL));
 }
-
 OS 3 WAYS
 FORK PROCESS
 SEND DATA TO DATABASE
     MYSQL INSTANCE
-
 VV
 GLOBAL VARIABLE/THREAD TO EMULATE. 
-
  WHEN STORED TO GLOBAL VARIABLE ENCRYPT, WHEN READ FROM VARIABLE, DECRYPT. 
     BITWISE NOT.
-
 */
-    
-    
-
-
-
-
-
