@@ -27,17 +27,19 @@ class sensor {
 } vt235;
 
 //function declarations
-int flow_speed();
+
 int viscosity(int temp_inside);
 int temperature_inside();
+int flow_speed(int a);
 int temperature_outside();
-void gps_position();
+bool gps_position();
 int battery_level();
 int hard_drive_space();
 int wifi_signal();
 void sensor_naming();
 sensor vt235x;
 sensor psx25;
+
 
 int main()
 {
@@ -49,6 +51,7 @@ int main()
     cout << temperature_outside() << endl;
     cout << flow_speed() << endl; 
     viscosity(temperature_inside()) //still need warnings
+    flow_speed(viscosity(temperature_inside));
     sensor_naming(); //exported to csv file
 
     //void sensor_naming(sensor vt235x);
@@ -56,10 +59,7 @@ int main()
 
 }
 
-int temperature_inside();
-int  viscosity(int temperature_inside);
-bool gps_position();
-int flow_speed(int a);
+
 
 bool gps_position() {
     int physical_catastrophe_odds;
@@ -94,7 +94,7 @@ int flow_speed(int a) {
     if (a = 500){
         speed = 7;
     }
-    /*
+    
     //low viscosity, lowers speed.
     else if((viscosity() < 490) && (viscosity() > 480)){
         speed = 4
@@ -123,7 +123,6 @@ int flow_speed(int a) {
     if ((gps_position()) == true) {
         speed = 0;
     }
-    
     
     //high temp signals outside catastrophe, therefore speed stop. 
    /* if ((temperature_outside()) >= 220) {
@@ -168,43 +167,8 @@ int temperature_inside() {
    
     return temp_inside;
 }
-int main()
-{
-  flow_speed(viscosity(temperature_inside));
-
-}
-
-int flow_speed() {
-    int speed = 7;
-    //catastrophe conditions
-    //high temp signals outside catastrophe, therefore speed stop. 
-    if (temperature_outside() >= 220) {
-        speed = 0;
-    }
-    /*
-    calls gpsposition function. if random odds compare to TRUE, 
-    GPS not in the right position signalling catastrophe
-    */
-    
-    if (gps_position() = TRUE) {
-        speed = 0;
-    }
-    
-   switch (viscosity)
-{
-     case 500:
-        speed = 7;
-        
-     ;
-     case (viscosity < 500):
-        speed = 5
-     ;
-     case (viscosity > 500): 
-        speed = 8;
-}
-    return speed;
-}
-
+/*
+REPEAT VISCOSITY
 //viscosity changes at temperature changes
 int  viscosity(int temp_inside) {
     //ideal viscosity occurs at 105 degrees F
@@ -231,15 +195,10 @@ int  viscosity(int temp_inside) {
     }
     return visc;
 }
+END REPEAT
+*/
 
-int temperature_inside() {
-    srand((unsigned)time(0));
-    //https://www.bitdegree.org/learn/random-number-generator-cpp#random-numbers-between-1-and-100
-    int temp_inside;
-    temp_inside = 100 + (rand() % 10);
-   
-    return temp_inside;
-}
+
 
 //done
 int temperature_outside() {
