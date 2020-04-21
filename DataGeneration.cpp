@@ -24,7 +24,7 @@ class sensor {
     int hard_drive_space();
     int wifi_signal();
     string account_permissions;
-} vt235;
+};
 
 //function declarations
 
@@ -37,14 +37,10 @@ int battery_level();
 int hard_drive_space();
 int wifi_signal();
 void sensor_naming();
-sensor vt235x;
-sensor psx25;
 
 
 int main()
 {
-    sensor vt235x;
-    sensor psx25;
    
     srand((unsigned)time(0));
     cout << temperature_inside() << endl;
