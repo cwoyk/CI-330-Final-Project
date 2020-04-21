@@ -124,9 +124,9 @@ int flow_speed(int a) {
     }
     
     //high temp signals outside catastrophe, therefore speed stop. 
-   /* if ((temperature_outside()) >= 220) {
+    if ((temperature_outside()) >= 220) {
         speed = 0;
-    } */
+    }
     return speed;
 }
     
@@ -164,6 +164,7 @@ int temperature_inside() {
    
     return temp_inside;
 }
+
 /*
 REPEAT VISCOSITY
 //viscosity changes at temperature changes
@@ -258,7 +259,7 @@ void sensor_naming() {
 }
 
 
-/*
+
 int battery_level() {
              time_t t = time(NULL);
     struct tm tm = *localtime(&t);
@@ -304,11 +305,11 @@ int hard_drive_space(bool wifi) {
         free();
     }
     
-    if wifi signal is good. free hard drive space. 
-        time since free, decrease available space.
+   // if wifi signal is good. free hard drive space. 
+   //     time since free, decrease available space.
         
 }
-*/
+
 bool wifi_signal() {
         int sending;
         int receiving;
@@ -320,8 +321,8 @@ bool wifi_signal() {
             signal = true;
         }
     return signal;
-        
 }
+/*
 OS 3 WAYS
 FORK PROCESS
 SEND DATA TO DATABASE
